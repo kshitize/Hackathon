@@ -48,7 +48,7 @@ const Adminpage = () => {
     console.log(data);
     if(data==="pax details saved to db")
     {
-        window.alert("Pax added to DB");
+        window.alert("Pax added to DB.");
     }
   };
 
