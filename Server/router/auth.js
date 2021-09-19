@@ -21,20 +21,19 @@ router.post('/adduser', (req, res) => {
 // login route by admin or stakeholder
 router.post('/login', async(req, res) => {
     try {
-        const { username, password, usertype } = req.body;
-        if (!username || !password || !usertype) {
+        const { username, password } = req.body;
+        if (!username || !password) {
             return res.status(201).json("Enter login credentials properly");
         }
         const userLogin = await User.findOne({ username: username });
         console.log(userLogin);
-        if (!userLogin) {
-            res.json("User not in db");
+        if (userLogin === null) {
+            return res.status(201).json("User not in DB");
         } else {
-            //res.json("Matching login username and password");
             if (userLogin.username === username && userLogin.password === password) {
-                res.json("User Login successful");
+                return res.json("User Login successful");
             } else {
-                res.json("User Login failed");
+                return res.json("User Login failed");
             }
         }
 
@@ -48,14 +47,14 @@ router.post('/register', (req, res) => {
 
     const { name, email, phone, discounttype, expiryofcoupon, nextdateofjourney, uniquekey } = req.body;
 
-    if (!name || !email || !phone || !discounttype || !expiryofcoupon || !nextdateofjourney || !uniquekey) {
-        return res.status(400).json({ error: "Fill data properly" });
+    if (!name || !email || !discounttype || !expiryofcoupon) {
+        return res.status(400).json({ error: "Fill pax data properly to add" });
     }
 
     const pax = new Passenger({ name, email, phone, discounttype, expiryofcoupon, nextdateofjourney, uniquekey });
 
     pax.save().then(() => {
-        res.status(201).json("pax details saved to db");
+        return res.status(201).json("pax details saved to db");
     }).catch((err) => res.status(202).json("failed to add pax details"));
 
     //res.send("register pax page");
