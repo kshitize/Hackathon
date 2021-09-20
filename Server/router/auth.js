@@ -56,10 +56,37 @@ router.post('/register', (req, res) => {
     pax.save().then(() => {
         return res.status(201).json("pax details saved to db");
     }).catch((err) => res.status(202).json("failed to add pax details"));
+});
 
-    //res.send("register pax page");
-    //res.json(req.body);
-    //res.json(req.body);
+// Passenger login
+router.post('/paxlogin', async (req, res) => {
+
+    try {
+        const { name, email, phone, discounttype, expiryofcoupon, nextdateofjourney, uniquekey } = req.body;
+        
+        if (!email || !phone) {
+            return res.status(201).json("Enter login credentials properly");
+        }
+        const paxLogin = await Passenger.findOne({ email: email });
+        console.log(paxLogin);
+        if (paxLogin === null) {
+            return res.status(201).json("Pax not in DB");
+        } else {
+            if (paxLogin.email === email) {
+                const result = await Passenger.updateOne({email},{
+                    $set:{
+                        phone:phone
+                    }
+                });
+                return res.json("Pax Login successful");
+            } else {
+                return res.json("Pax Login failed");
+            }
+        }
+
+    } catch (error) {
+        console.log("pax login route error");
+    }
 });
 
 
