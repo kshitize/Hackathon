@@ -59,6 +59,7 @@ router.post('/register', (req, res) => {
 
     //res.send("register pax page");
     //res.json(req.body);
+    //res.json(req.body);
 });
 
 

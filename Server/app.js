@@ -9,7 +9,7 @@ require('./db/conn');
 app.use(express.json()); //acts as a middleware
 const User = require('./model/userSchema');
 const Passenger = require('./model/paxSchema');
-app.use(require('./router/auth')); //acts as a middleware
+app.use(require('./router/auth')); //acts as a middleware.
 
 
 app.listen(PORT, () => {
