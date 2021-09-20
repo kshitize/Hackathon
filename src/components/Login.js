@@ -36,7 +36,7 @@ const Login = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+    console.log(data.JSON);
 
     if (data==="User not in DB" || !data) {
       window.alert("Invalid credentials");

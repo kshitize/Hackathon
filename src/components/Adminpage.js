@@ -10,7 +10,7 @@ const Adminpage = () => {
     nextdateofjourney: "",
     uniquekey: ""
   });
-  let name, value;
+  let name, value,test;
   const handleInputs = (e) => {
     name = e.target.name;
     value = e.target.value;
